@@ -5,8 +5,8 @@ const Productdesc = require('../models/Productdesc');
 var bodyParser = require('body-parser');
 
 router.use(express.json());
-router.use(bodyParser.urlencoded({extended: false}))
-router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({extended: false}));
+router.use(bodyParser.json());
 router.get("/", async (req, res) => {
   await Home.findAll({
     limit: 5,
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
       ['vendidos', 'DESC'],
     ],
     attributes: ['id_produto', 'nome_produto', 'categorias', 'capa', 'vendidos', 'valor'],
-  })
+  });
     .then((dataHome)=>{
       return res.json({
         dataHome
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 router.get("/all", async (req, res) => {
   await Home.findAll({
     attributes: ['id_produto', 'nome_produto', 'categorias', 'capa', 'vendidos', 'valor'],
-  })
+  });
     .then((dataHome)=>{
       return res.json({
         dataHome
