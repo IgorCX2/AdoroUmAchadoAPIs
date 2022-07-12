@@ -1,27 +1,19 @@
 const express = require("express");
-const prodteste = express.Router();
+const router = express.Router();
 const Home = require('../models/Home');
 
-prodteste.get("/", async (req, res) => {
-  await Home.findAll({
-    limit: 5,
-    order: [
-      ['vendidos', 'DESC'],
-    ],
-    attributes: ['id_produto', 'nome_produto', 'categorias', 'capa', 'vendidos', 'valor'],
-  })
-    .then((dataHome)=>{
-      return res.json({
-        dataHome
-      });
-    }).catch(()=>{
-      return res.status(400).json({
-        mensagem: "erro: nenhum valor"
-      });
+router.get("/", async (req, res) =>{
+  try{
+    res.json({
+      status: 200,
+      message: "pçaa",
     });
+  }catch(error){
+    console.log(error);
+    return res.status(500).send("erro");
+  }
 });
-
-prodteste.get("/all", async (req, res) => {
+router.get("/all", async (req, res) => {
   await Home.findAll({
     attributes: ['id_produto', 'nome_produto', 'categorias', 'capa', 'vendidos', 'valor'],
   })
@@ -35,5 +27,4 @@ prodteste.get("/all", async (req, res) => {
       });
     });
 });
-
-module.exports = prodteste;
+module.exports = router;
