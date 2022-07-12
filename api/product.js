@@ -1,8 +1,8 @@
 const express = require("express");
-const router = express.Router();
+const prodteste = express.Router();
 const Home = require('../models/Home');
 
-router.get("/", async (req, res) => {
+prodteste.get("/", async (req, res) => {
   await Home.findAll({
     limit: 5,
     order: [
@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
     });
 });
 
-router.get("/all", async (req, res) => {
+prodteste.get("/all", async (req, res) => {
   await Home.findAll({
     attributes: ['id_produto', 'nome_produto', 'categorias', 'capa', 'vendidos', 'valor'],
   })
@@ -36,4 +36,4 @@ router.get("/all", async (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = prodteste;
