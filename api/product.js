@@ -1,28 +1,44 @@
 const express = require("express");
 const router = express.Router();
+const Home = require('../models/Home');
+const Productdesc = require('../models/Productdesc');
+var bodyParser = require('body-parser');
 
-router.get("/", async (req, res) =>{
-  try{
-    res.json({
-      status: 200,
-      message: "pçaa",
+router.use(express.json());
+router.use(bodyParser.urlencoded({extended: false}))
+router.use(bodyParser.json())
+router.get("/", async (req, res) => {
+  await Home.findAll({
+    limit: 5,
+    order: [
+      ['vendidos', 'DESC'],
+    ],
+    attributes: ['id_produto', 'nome_produto', 'categorias', 'capa', 'vendidos', 'valor'],
+  })
+    .then((dataHome)=>{
+      return res.json({
+        dataHome
+      });
+    }).catch(()=>{
+      return res.status(400).json({
+        mensagem: "erro: nenhum valor"
+      });
     });
-  }catch(error){
-    console.log(error);
-    return res.status(500).send("erro");
-  }
 });
 
-router.get("/teste", async (req, res) =>{
-  try{
-    res.json({
-      status: 200,
-      message: "eu nao sei o que fazer",
+router.get("/all", async (req, res) => {
+  await Home.findAll({
+    attributes: ['id_produto', 'nome_produto', 'categorias', 'capa', 'vendidos', 'valor'],
+  })
+    .then((dataHome)=>{
+      return res.json({
+        dataHome
+      });
+    }).catch(()=>{
+      return res.status(400).json({
+        mensagem: "erro: nenhum valor"
+      });
     });
-  }catch(error){
-    console.log(error);
-    return res.status(500).send("erro");
-  }
 });
 
 module.exports = router;
