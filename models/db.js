@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('adoroumachado', 'root', '', {
-  host: 'http://192.168.0.157',
+  host: 'http://192.168.0.157:3306/',
   dialect: 'mysql',
   dialectModule: require('mysql2'),
 });
