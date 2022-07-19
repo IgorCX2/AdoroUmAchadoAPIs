@@ -55,5 +55,21 @@ router.post('/add-home', async (req, res) =>{
     });
   });
 });
-
+router.post('/produto-solto', async (req, res) =>{
+  console.log(req.body.idproduto);
+  await Home.findAll({
+    where:{
+      id_produto: req.body.idproduto
+    }
+  })
+    .then((dataProd)=>{
+      return res.json({
+        dataProd
+      });
+    }).catch(()=>{
+      return res.status(400).json({
+        mensagem: "erro: nenhum valor"
+      });
+    });
+});
 module.exports = router;

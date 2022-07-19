@@ -73,7 +73,7 @@ router.post('/cadastro', async (req, res) =>{
 router.post('/entrar', async (req, res) =>{
   console.log(req.body);
   const loginv = await User.findOne({
-    attributes: ['id_user','email', 'senha'],
+    attributes: ['id_user','email', 'senha', 'nome_user'],
     where:{
       email: req.body.email
     }
@@ -90,7 +90,7 @@ router.post('/entrar', async (req, res) =>{
       mensagem: "Erro: usuario ou senha incorreta(senha)",
     });
   }
-  var token = jwt.sign({id: loginv.id_user}, "OD2DS8S21DSA4SD4SS3A",{
+  var token = jwt.sign({id: loginv.id_user, nick: loginv.nome_user}, "OD2DS8S21DSA4SD4SS3A",{
     expiresIn: '1d'
   })
   return res.json({
